@@ -1,5 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router'; 
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type':'application/json' })
+};
+
+const BACKEND_URl = 'http://localhost:3000';
 
 @Component({
     selector: 'app-login',
@@ -8,29 +14,28 @@ import { Router } from '@angular/router';
 })
 
 export class LoginComponent implements OnInit {
-    users = [{'email':'usr1@gmail.com','pwd':'123'},{'email':'usr2@gmail.com','pwd':'456'},{'email':'usr3@gmail.com','pwd':'789'}]
     customer = {email: '', upwd: '', valid: false};
     toggleClass: boolean = true;
-    constructor( private router:Router ) { }
+    constructor( private router:Router, private httpClient:HttpClient ) { }
 
     ngOnInit(): void {
     }
-
-    verifyUsr() {
-        this.customer.valid = false;
-        for (let i = 0; i < this.users.length; i++) {
-            if (this.customer.email == this.users[i].email && this.customer.upwd == this.users[i].pwd) {
-                this.customer.valid = true;
-            } 
-        }
-        if (this.customer.valid == true) {
-            this.toggleClass = true;
-            this.router.navigateByUrl('/account/'+this.customer.email+'/'+this.customer.upwd);
-        }
-        else {
-            this.toggleClass = false;
-            this.customer.email = "";
-            this.customer.upwd = "";
-        }
+    public loginfunc() {
+        this.httpClient.post(BACKEND_URl + '/api/auth', this.customer, httpOptions).subscribe((data:any) => {
+            if (data.valid) {
+                sessionStorage.setItem('id', data.id);
+                sessionStorage.setItem('uname', data.uname);
+                sessionStorage.setItem('bdate', data.bdate);
+                sessionStorage.setItem('age', data.age);
+                sessionStorage.setItem('email', data.email);
+                this.toggleClass = true;
+                this.router.navigateByUrl('/account');
+            }
+            else {
+                this.toggleClass = false;
+                this.customer.email = "";
+                this.customer.upwd = "";
+            }
+        });
     }
 }

@@ -16,11 +16,8 @@ export class AppComponent {
 
   }
 
-  navbyurl(id:number) {
-    this.router.navigateByUrl('/login/'+id);
-  }
-
-  navby(id:number) {
-    this.router.navigate(['/login',id]);
+  logOut() {
+    sessionStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 }

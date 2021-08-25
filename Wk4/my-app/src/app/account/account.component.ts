@@ -9,37 +9,29 @@ import { Router } from '@angular/router';
 })
 
 export class AccountComponent implements OnInit {
-    email="JohnDoe@gmail.com";
-    upwd="Password"
-    // paramsub;
+
+    uname=sessionStorage.getItem('uname');
+    bdate=sessionStorage.getItem('bdate');
+    age=sessionStorage.getItem('age');
+    email=sessionStorage.getItem('email');
+    upwd=sessionStorage.getItem('upwd');
     constructor( private route:ActivatedRoute, private router:Router ) { }
 
     ngOnInit() {
-        if (this.route.snapshot.params.email) {
-            this.email = this.route.snapshot.params.email;
+        if (this.uname == null) {
+            this.uname="John";
+            this.bdate="01/01/1999";
+            this.age="22";
+            this.email="JohnDoe@gmail.com";
+            this.upwd="Password"
         }
-        if (this.route.snapshot.params.upwd) {
-            this.upwd = this.route.snapshot.params.upwd;
-        }
-        // this.paramsub = this.route.paramMap.subscribe(params => {
-        //     this.email = params.get('email');
-        //     this.upwd = params.get('upwd');
-        // });
     }
 
     return() {
         this.router.navigateByUrl('/login');
     }
 
-    // unsub() {
-    //     this.paramsub.unsubscribe();
-    // }
-
-    // ngOnDestroy() {
-    //     if(this.paramsub) {
-    //         this.paramsub.unsubscribe();
-    //     }
-    // }
-
-
+    edit() {
+        this.router.navigateByUrl('/profile');
+    }
 }

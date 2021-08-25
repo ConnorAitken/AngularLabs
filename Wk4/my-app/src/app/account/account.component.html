@@ -17,14 +17,15 @@
       </div>
       <div class="formcontainer">
       <div class="container">
-        <label for="fname"><strong>First Name</strong></label>
-        <div class="value" id="fname">John</div>
-        <label for="lname"><strong>Last Name</strong></label>
-        <div class="value" id="lname">Doe</div>
+        <label for="fname"><strong>Name</strong></label>
+        <div class="value" id="fname">{{uname}}</div>
+        <label for="bdate"><strong>Date of Birth</strong></label>
+        <div class="value" id="bdate">{{bdate}}</div>
+        <label for="age"><strong>Age</strong></label>
+        <div class="value" id="age">{{age}}</div>
         <label for="mail"><strong>E-mail</strong></label>
         <div class="value" id="mail">{{email}}</div>
-        <label for="upwd"><strong>Password</strong></label>
-        <div class="value" id="upwd">{{upwd}}</div>
       </div>
       <button type="submit" (click)="return()"><strong>RETURN</strong></button>
+      <button type="submit" (click)="edit()"><strong>EDIT</strong></button>
       <div id="test"></div>
